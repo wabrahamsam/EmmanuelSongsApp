@@ -9,13 +9,13 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Songs of Emmanuel">
 <title>Songs of Emmanuel</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 
 :root {
   --bg:#f7f3ec;--bg2:#efe9de;--surface:#ffffff;--surface2:rgba(0,0,0,0.04);
   --border:rgba(0,0,0,0.1);--border-gold:rgba(139,105,20,0.35);
-  --text:#0f0a04;--text3:#6b573a;
+  --text:#0f0a04;--text3:#6b573a;--tab-inactive:#4a3a22;
   --gold:#8b6914;--gold-bg:rgba(139,105,20,0.1);--gold-bg2:rgba(139,105,20,0.06);
   --refrain-color:#5a3010;--refrain-bg:rgba(90,48,16,0.04);
   --meta-color:#8a7a60;
@@ -25,12 +25,12 @@
   --error-bg:rgba(160,40,40,0.12);--error-border:rgba(160,40,40,0.4);--error-text:#7a1818;
   --menu-bg:#ffffff;--menu-shadow:rgba(0,0,0,0.15);
   --lyric-size:17px;--lyric-lh:1.55;--section-gap:0.85em;
-  --tab-font-size:11px;--settings-font-size:16px;
+  --tab-font-size:12.5px;--settings-font-size:16px;
 }
 @media(prefers-color-scheme:dark){:root{
   --bg:#0d0a06;--bg2:#1a1208;--surface:rgba(245,234,214,0.05);--surface2:rgba(245,234,214,0.08);
   --border:rgba(201,168,76,0.15);--border-gold:rgba(201,168,76,0.3);
-  --text:#fbf6ea;--text3:#a08e6e;
+  --text:#fbf6ea;--text3:#a08e6e;--tab-inactive:#c4b896;
   --gold:#c9a84c;--gold-bg:rgba(201,168,76,0.12);--gold-bg2:rgba(201,168,76,0.06);
   --refrain-color:#e8d5a3;--refrain-bg:rgba(201,168,76,0.06);
   --meta-color:#9a8a6e;
@@ -40,8 +40,8 @@
   --error-bg:rgba(100,40,40,0.2);--error-border:rgba(160,80,80,0.3);--error-text:#d4a0a0;
   --menu-bg:#2a2010;--menu-shadow:rgba(0,0,0,0.5);
 }}
-body.theme-light{--bg:#f7f3ec;--bg2:#efe9de;--surface:#ffffff;--surface2:rgba(0,0,0,0.04);--border:rgba(0,0,0,0.1);--border-gold:rgba(139,105,20,0.35);--text:#0f0a04;--text3:#6b573a;--gold:#8b6914;--gold-bg:rgba(139,105,20,0.1);--gold-bg2:rgba(139,105,20,0.06);--refrain-color:#5a3010;--refrain-bg:rgba(90,48,16,0.04);--meta-color:#8a7a60;--tag-bg:rgba(139,105,20,0.12);--tag-text:#6b4f0e;--btn-bg:linear-gradient(135deg,#7a5c0e,#c9a84c);--btn-text:#fff;--menu-bg:#ffffff;--menu-shadow:rgba(0,0,0,0.15);--success-bg:rgba(40,100,40,0.12);--success-border:rgba(40,110,40,0.4);--success-text:#1e5c1e;--error-bg:rgba(160,40,40,0.12);--error-border:rgba(160,40,40,0.4);--error-text:#7a1818;}
-body.theme-dark{--bg:#0d0a06;--bg2:#1a1208;--surface:rgba(245,234,214,0.05);--surface2:rgba(245,234,214,0.08);--border:rgba(201,168,76,0.15);--border-gold:rgba(201,168,76,0.3);--text:#fbf6ea;--text3:#a08e6e;--gold:#c9a84c;--gold-bg:rgba(201,168,76,0.12);--gold-bg2:rgba(201,168,76,0.06);--refrain-color:#e8d5a3;--refrain-bg:rgba(201,168,76,0.06);--meta-color:#9a8a6e;--tag-bg:rgba(201,168,76,0.15);--tag-text:#e8d5a3;--btn-bg:linear-gradient(135deg,#8b6914,#c9a84c);--btn-text:#1a1208;--menu-bg:#2a2010;--menu-shadow:rgba(0,0,0,0.5);--success-bg:rgba(60,100,60,0.2);--success-border:rgba(100,160,100,0.3);--success-text:#a8d4a8;--error-bg:rgba(100,40,40,0.2);--error-border:rgba(160,80,80,0.3);--error-text:#d4a0a0;}
+body.theme-light{--bg:#f7f3ec;--bg2:#efe9de;--surface:#ffffff;--surface2:rgba(0,0,0,0.04);--border:rgba(0,0,0,0.1);--border-gold:rgba(139,105,20,0.35);--text:#0f0a04;--text3:#6b573a;--tab-inactive:#4a3a22;--gold:#8b6914;--gold-bg:rgba(139,105,20,0.1);--gold-bg2:rgba(139,105,20,0.06);--refrain-color:#5a3010;--refrain-bg:rgba(90,48,16,0.04);--meta-color:#8a7a60;--tag-bg:rgba(139,105,20,0.12);--tag-text:#6b4f0e;--btn-bg:linear-gradient(135deg,#7a5c0e,#c9a84c);--btn-text:#fff;--menu-bg:#ffffff;--menu-shadow:rgba(0,0,0,0.15);--success-bg:rgba(40,100,40,0.12);--success-border:rgba(40,110,40,0.4);--success-text:#1e5c1e;--error-bg:rgba(160,40,40,0.12);--error-border:rgba(160,40,40,0.4);--error-text:#7a1818;}
+body.theme-dark{--bg:#0d0a06;--bg2:#1a1208;--surface:rgba(245,234,214,0.05);--surface2:rgba(245,234,214,0.08);--border:rgba(201,168,76,0.15);--border-gold:rgba(201,168,76,0.3);--text:#fbf6ea;--text3:#a08e6e;--tab-inactive:#c4b896;--gold:#c9a84c;--gold-bg:rgba(201,168,76,0.12);--gold-bg2:rgba(201,168,76,0.06);--refrain-color:#e8d5a3;--refrain-bg:rgba(201,168,76,0.06);--meta-color:#9a8a6e;--tag-bg:rgba(201,168,76,0.15);--tag-text:#e8d5a3;--btn-bg:linear-gradient(135deg,#8b6914,#c9a84c);--btn-text:#1a1208;--menu-bg:#2a2010;--menu-shadow:rgba(0,0,0,0.5);--success-bg:rgba(60,100,60,0.2);--success-border:rgba(100,160,100,0.3);--success-text:#a8d4a8;--error-bg:rgba(100,40,40,0.2);--error-border:rgba(160,80,80,0.3);--error-text:#d4a0a0;}
 body.text-sm{--lyric-size:14px;}
 body.text-md{--lyric-size:17px;}
 body.text-lg{--lyric-size:21px;}
@@ -56,7 +56,7 @@ h1{font-family:'Cinzel',serif;font-size:clamp(20px,5vw,36px);font-weight:700;col
 
 /* Tabs — fix 8: slightly larger label font */
 .tabs{display:flex;margin-bottom:20px;border:1px solid var(--border);border-radius:6px;overflow:hidden;background:var(--surface);}
-.tab{flex:1;padding:11px 6px;background:transparent;border:none;color:var(--text3);font-family:'Cinzel',serif;font-size:var(--tab-font-size);letter-spacing:.06em;cursor:pointer;transition:all .2s;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:5px;}
+.tab{flex:1;padding:11px 6px;background:transparent;border:none;color:var(--tab-inactive);font-family:'Cinzel',serif;font-size:var(--tab-font-size);letter-spacing:.06em;cursor:pointer;transition:all .2s;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:5px;font-weight:600;}
 .tab:last-child{border-right:none;}
 .tab.active{background:var(--gold-bg);color:var(--gold);}
 .tab:hover:not(.active){background:var(--surface2);color:var(--text);}
@@ -111,7 +111,7 @@ select{padding:10px 13px;}select option{background:var(--bg2);color:var(--text);
 .song-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:13px 10px;cursor:pointer;transition:all .2s;display:flex;justify-content:space-between;align-items:center;gap:10px;}
 .song-card:hover{border-color:var(--border-gold);background:var(--surface2);}
 .song-card-info{flex:1;min-width:0;}
-.song-card-title{font-family:'Cinzel',serif;font-size:15px;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500;}
+.song-card-title{font-family:'Cinzel',serif;font-size:15.5px;font-weight:500;color:var(--text);letter-spacing:.015em;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .song-card-right{display:flex;align-items:center;gap:4px;flex-shrink:0;}
 .star-btn{background:none;border:none;font-size:20px;cursor:pointer;color:var(--border);transition:color .15s,transform .15s;padding:2px;line-height:1;}
 .star-btn.on{color:var(--star);}
@@ -169,7 +169,7 @@ select{padding:10px 13px;}select option{background:var(--bg2);color:var(--text);
 .accordion-item{border:1px solid var(--border);border-radius:8px;margin-bottom:10px;overflow:hidden;}
 .accordion-header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;cursor:pointer;background:var(--surface);transition:background .2s;user-select:none;}
 .accordion-header:hover{background:var(--surface2);}
-.accordion-title{font-family:'Cinzel',serif;font-size:14px;color:var(--text);letter-spacing:.06em;display:flex;align-items:center;gap:10px;}
+.accordion-title{font-family:'Cinzel',serif;font-size:15.5px;font-weight:600;color:var(--text);letter-spacing:.05em;display:flex;align-items:center;gap:10px;}
 .accordion-title svg{width:15px;height:15px;flex-shrink:0;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .accordion-arrow{width:16px;height:16px;stroke:var(--text3);fill:none;stroke-width:1.5;stroke-linecap:round;transition:transform .25s;}
 .accordion-arrow.open{transform:rotate(180deg);}
@@ -399,7 +399,7 @@ footer{text-align:center;margin-top:40px;padding-top:14px;border-top:1px solid v
     </div>
     <div class="accordion-body" id="acc-about">
       <div style="font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin-bottom:2px;">Songs of Emmanuel</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.8</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.12</div>
       <div class="about-body">
         <strong>Emmanuel Bible Institute</strong><br>
         Tenkasi, Tamil Nadu, India<br>
