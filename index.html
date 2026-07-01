@@ -400,7 +400,7 @@ footer{text-align:center;margin-top:40px;padding-top:14px;border-top:1px solid v
     </div>
     <div class="accordion-body" id="acc-about">
       <div style="font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin-bottom:2px;">Songs of Emmanuel</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.15</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.16</div>
       <div class="about-body">
         <strong>Emmanuel Bible Institute</strong><br>
         Tenkasi, Tamil Nadu, India<br>
@@ -871,6 +871,9 @@ function onSongsKey(e) {
       selectAC(it.dataset.src, parseInt(it.dataset.idx));
     } else {
       hideAC();
+      // Push a results state so the back button correctly returns to the full list
+      const q = document.getElementById('songs-q').value || '';
+      if (q.trim()) pushScreen({ screen: 'songs-results', q });
     }
     return;
   }
@@ -940,12 +943,14 @@ function renderSongs() {
     filtered = ALL_SORTED.filter(s => s.page === pageNum);
     pageMatchOnly = true;
   } else {
+    // Search titles first; if that gives results, also add any additional lyrics-only
+    // matches so songs whose titles don't match but whose lyrics do are included too.
     const titleMatches = ALL_SORTED.filter(s => s.title.toLowerCase().includes(q));
-    if (titleMatches.length) {
-      filtered = titleMatches;
-    } else {
-      filtered = ALL_SORTED.filter(s => s.lyrics.toLowerCase().includes(q));
-    }
+    const titleMatchSet = new Set(titleMatches.map(s => s.title));
+    const lyricsOnlyMatches = ALL_SORTED.filter(s =>
+      !titleMatchSet.has(s.title) && s.lyrics.toLowerCase().includes(q)
+    );
+    filtered = [...titleMatches, ...lyricsOnlyMatches];
   }
 
   const total = SONGS.length + myLib.length;
