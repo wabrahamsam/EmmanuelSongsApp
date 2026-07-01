@@ -16,7 +16,7 @@
 :root {
   --bg:#f7f3ec;--bg2:#efe9de;--surface:#ffffff;--surface2:rgba(0,0,0,0.04);
   --border:rgba(0,0,0,0.1);--border-gold:rgba(139,105,20,0.35);
-  --text:#0f0a04;--text3:#6b573a;--tab-inactive:#4a3a22;
+  --text:#0f0a04;--text3:#4a4440;--tab-inactive:#4a3a22;--viewer-title-color:#1a1410;
   --gold:#8b6914;--gold-bg:rgba(139,105,20,0.1);--gold-bg2:rgba(139,105,20,0.06);
   --refrain-color:#5a3010;--refrain-bg:rgba(90,48,16,0.04);
   --meta-color:#8a7a60;
@@ -31,7 +31,7 @@
 @media(prefers-color-scheme:dark){:root{
   --bg:#0d0a06;--bg2:#1a1208;--surface:rgba(245,234,214,0.05);--surface2:rgba(245,234,214,0.08);
   --border:rgba(201,168,76,0.15);--border-gold:rgba(201,168,76,0.3);
-  --text:#fbf6ea;--text3:#a08e6e;--tab-inactive:#c4b896;
+  --text:#fbf6ea;--text3:#c0b8b0;--tab-inactive:#c4b896;--viewer-title-color:#e8e0d8;
   --gold:#c9a84c;--gold-bg:rgba(201,168,76,0.12);--gold-bg2:rgba(201,168,76,0.06);
   --refrain-color:#e8d5a3;--refrain-bg:rgba(201,168,76,0.06);
   --meta-color:#9a8a6e;
@@ -41,8 +41,8 @@
   --error-bg:rgba(100,40,40,0.2);--error-border:rgba(160,80,80,0.3);--error-text:#d4a0a0;
   --menu-bg:#2a2010;--menu-shadow:rgba(0,0,0,0.5);
 }}
-body.theme-light{--bg:#f7f3ec;--bg2:#efe9de;--surface:#ffffff;--surface2:rgba(0,0,0,0.04);--border:rgba(0,0,0,0.1);--border-gold:rgba(139,105,20,0.35);--text:#0f0a04;--text3:#6b573a;--tab-inactive:#4a3a22;--gold:#8b6914;--gold-bg:rgba(139,105,20,0.1);--gold-bg2:rgba(139,105,20,0.06);--refrain-color:#5a3010;--refrain-bg:rgba(90,48,16,0.04);--meta-color:#8a7a60;--tag-bg:rgba(139,105,20,0.12);--tag-text:#6b4f0e;--btn-bg:linear-gradient(135deg,#7a5c0e,#c9a84c);--btn-text:#fff;--menu-bg:#ffffff;--menu-shadow:rgba(0,0,0,0.15);--success-bg:rgba(40,100,40,0.12);--success-border:rgba(40,110,40,0.4);--success-text:#1e5c1e;--error-bg:rgba(160,40,40,0.12);--error-border:rgba(160,40,40,0.4);--error-text:#7a1818;}
-body.theme-dark{--bg:#0d0a06;--bg2:#1a1208;--surface:rgba(245,234,214,0.05);--surface2:rgba(245,234,214,0.08);--border:rgba(201,168,76,0.15);--border-gold:rgba(201,168,76,0.3);--text:#fbf6ea;--text3:#a08e6e;--tab-inactive:#c4b896;--gold:#c9a84c;--gold-bg:rgba(201,168,76,0.12);--gold-bg2:rgba(201,168,76,0.06);--refrain-color:#e8d5a3;--refrain-bg:rgba(201,168,76,0.06);--meta-color:#9a8a6e;--tag-bg:rgba(201,168,76,0.15);--tag-text:#e8d5a3;--btn-bg:linear-gradient(135deg,#8b6914,#c9a84c);--btn-text:#1a1208;--menu-bg:#2a2010;--menu-shadow:rgba(0,0,0,0.5);--success-bg:rgba(60,100,60,0.2);--success-border:rgba(100,160,100,0.3);--success-text:#a8d4a8;--error-bg:rgba(100,40,40,0.2);--error-border:rgba(160,80,80,0.3);--error-text:#d4a0a0;}
+body.theme-light{--bg:#f7f3ec;--bg2:#efe9de;--surface:#ffffff;--surface2:rgba(0,0,0,0.04);--border:rgba(0,0,0,0.1);--border-gold:rgba(139,105,20,0.35);--text:#0f0a04;--text3:#4a4440;--tab-inactive:#4a3a22;--viewer-title-color:#1a1410;--gold:#8b6914;--gold-bg:rgba(139,105,20,0.1);--gold-bg2:rgba(139,105,20,0.06);--refrain-color:#5a3010;--refrain-bg:rgba(90,48,16,0.04);--meta-color:#8a7a60;--tag-bg:rgba(139,105,20,0.12);--tag-text:#6b4f0e;--btn-bg:linear-gradient(135deg,#7a5c0e,#c9a84c);--btn-text:#fff;--menu-bg:#ffffff;--menu-shadow:rgba(0,0,0,0.15);--success-bg:rgba(40,100,40,0.12);--success-border:rgba(40,110,40,0.4);--success-text:#1e5c1e;--error-bg:rgba(160,40,40,0.12);--error-border:rgba(160,40,40,0.4);--error-text:#7a1818;}
+body.theme-dark{--bg:#0d0a06;--bg2:#1a1208;--surface:rgba(245,234,214,0.05);--surface2:rgba(245,234,214,0.08);--border:rgba(201,168,76,0.15);--border-gold:rgba(201,168,76,0.3);--text:#fbf6ea;--text3:#c0b8b0;--tab-inactive:#c4b896;--viewer-title-color:#e8e0d8;--gold:#c9a84c;--gold-bg:rgba(201,168,76,0.12);--gold-bg2:rgba(201,168,76,0.06);--refrain-color:#e8d5a3;--refrain-bg:rgba(201,168,76,0.06);--meta-color:#9a8a6e;--tag-bg:rgba(201,168,76,0.15);--tag-text:#e8d5a3;--btn-bg:linear-gradient(135deg,#8b6914,#c9a84c);--btn-text:#1a1208;--menu-bg:#2a2010;--menu-shadow:rgba(0,0,0,0.5);--success-bg:rgba(60,100,60,0.2);--success-border:rgba(100,160,100,0.3);--success-text:#a8d4a8;--error-bg:rgba(100,40,40,0.2);--error-border:rgba(160,80,80,0.3);--error-text:#d4a0a0;}
 body.text-sm{--lyric-size:14px;}
 body.text-md{--lyric-size:17px;}
 body.text-lg{--lyric-size:21px;}
@@ -112,7 +112,7 @@ select{padding:10px 13px;}select option{background:var(--bg2);color:var(--text);
 .song-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:13px 10px;cursor:pointer;transition:all .2s;display:flex;justify-content:space-between;align-items:center;gap:10px;}
 .song-card:hover{border-color:var(--border-gold);background:var(--surface2);}
 .song-card-info{flex:1;min-width:0;}
-.song-card-title{font-family:'Cinzel',serif;font-size:15.5px;font-weight:500;color:var(--text);letter-spacing:.015em;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.song-card-title{font-family:'Cinzel',serif;font-size:15.5px;font-weight:600;color:var(--text);letter-spacing:.015em;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .song-card-right{display:flex;align-items:center;gap:4px;flex-shrink:0;}
 .star-btn{background:none;border:none;font-size:20px;cursor:pointer;color:var(--border);transition:color .15s,transform .15s;padding:2px;line-height:1;}
 .star-btn.on{color:var(--star);}
@@ -125,7 +125,7 @@ select{padding:10px 13px;}select option{background:var(--bg2);color:var(--text);
 /* Viewer */
 .viewer{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:22px 22px 28px;}
 .viewer-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border);gap:12px;}
-.viewer-title{font-family:'Cinzel',serif;font-size:clamp(14px,3vw,21px);color:var(--gold);line-height:1.25;flex:1;}
+.viewer-title{font-family:'Cinzel',serif;font-size:clamp(14px,3vw,21px);font-weight:500;color:var(--viewer-title-color);line-height:1.25;flex:1;}
 .viewer-acts{display:flex;gap:6px;align-items:center;flex-shrink:0;}
 .viewer-body{font-size:var(--lyric-size);}
 .ll{display:block;line-height:var(--lyric-lh);}
@@ -400,7 +400,7 @@ footer{text-align:center;margin-top:40px;padding-top:14px;border-top:1px solid v
     </div>
     <div class="accordion-body" id="acc-about">
       <div style="font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin-bottom:2px;">Songs of Emmanuel</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.14</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.15</div>
       <div class="about-body">
         <strong>Emmanuel Bible Institute</strong><br>
         Tenkasi, Tamil Nadu, India<br>
