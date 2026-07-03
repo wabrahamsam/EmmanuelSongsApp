@@ -416,7 +416,7 @@ footer{text-align:center;margin-top:40px;padding-top:14px;border-top:1px solid v
     </div>
     <div class="accordion-body" id="acc-about">
       <div style="font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin-bottom:2px;">Songs of Emmanuel</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.18</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.19</div>
       <div class="about-body">
         <strong>Emmanuel Bible Institute</strong><br>
         Tenkasi, Tamil Nadu, India<br>
@@ -1078,8 +1078,8 @@ function buildViewer(s, src, idx, panel) {
   const stags = tags[s.title] || [];
   const isUser = src === 'my';
   const safeTitle = esc(s.title);
-  const tagInputId = `ti-${src}-${idx}`;
-  const tagAcId = `tac-${src}-${idx}`;
+  const tagInputId = `ti-${panel}-${src}-${idx}`;
+  const tagAcId = `tac-${panel}-${src}-${idx}`;
 
   // Fix 1: page reference at the bottom, italic book title
   const pageRefHtml = (s.page != null) ?
@@ -1091,8 +1091,8 @@ function buildViewer(s, src, idx, panel) {
       <div class="viewer-acts">
         <button class="star-btn ${starred ? 'on' : ''}" style="font-size:22px;" onclick="toggleFavV('${safeTitle}',this)">★</button>
         <div class="dot-menu-wrap">
-          <button class="dot-btn" onclick="toggleDotMenu('vm-${src}-${idx}',event)">⋮</button>
-          <div class="dot-menu" id="vm-${src}-${idx}">
+          <button class="dot-btn" onclick="toggleDotMenu('vm-${panel}-${src}-${idx}',event)">⋮</button>
+          <div class="dot-menu" id="vm-${panel}-${src}-${idx}">
             <button onclick="shareSong(${idx},'${src}')">
               <svg viewBox="0 0 14 14"><circle cx="11" cy="2.5" r="1.5"/><circle cx="11" cy="11.5" r="1.5"/><circle cx="2.5" cy="7" r="1.5"/><line x1="4" y1="7" x2="9.5" y2="3"/><line x1="4" y1="7" x2="9.5" y2="11"/></svg>
               Share
@@ -1115,14 +1115,14 @@ function buildViewer(s, src, idx, panel) {
     ${s.notes ? `<div style="margin-top:6px;font-size:13px;color:var(--text3);font-style:italic;">📝 ${esc(s.notes)}</div>` : ''}
     <div class="tag-mgr">
       <div class="tag-mgr-lbl">Tags</div>
-      <div class="tag-disp" id="td-${src}-${idx}">${stags.map(t => `<span class="tag-rm">${esc(t)}<button onclick="rmTag('${safeTitle}','${esc(t)}','${src}','${idx}')">×</button></span>`).join('')}</div>
+      <div class="tag-disp" id="td-${panel}-${src}-${idx}">${stags.map(t => `<span class="tag-rm">${esc(t)}<button onclick="rmTag('${safeTitle}','${esc(t)}','${src}','${idx}','${panel}')">×</button></span>`).join('')}</div>
       <div class="tag-input-wrap">
         <div class="tag-input-row">
           <input type="text" id="${tagInputId}" placeholder="Add tag…"
             oninput="updateTagAC('${tagInputId}','${tagAcId}')"
             onfocus="updateTagAC('${tagInputId}','${tagAcId}')"
-            onkeydown="if(event.key==='Enter'){addTag('${safeTitle}','${src}','${idx}');document.getElementById('${tagAcId}').classList.remove('vis');event.preventDefault();}else if(event.key==='Escape'){document.getElementById('${tagAcId}').classList.remove('vis');}">
-          <button class="btn btn-outline btn-sm" onclick="addTag('${safeTitle}','${src}','${idx}');document.getElementById('${tagAcId}').classList.remove('vis')">Add</button>
+            onkeydown="if(event.key==='Enter'){addTag('${safeTitle}','${src}','${idx}','${panel}');document.getElementById('${tagAcId}').classList.remove('vis');event.preventDefault();}else if(event.key==='Escape'){document.getElementById('${tagAcId}').classList.remove('vis');}">
+          <button class="btn btn-outline btn-sm" onclick="addTag('${safeTitle}','${src}','${idx}','${panel}');document.getElementById('${tagAcId}').classList.remove('vis')">Add</button>
         </div>
         <div class="tag-ac" id="${tagAcId}"></div>
       </div>
@@ -1199,17 +1199,17 @@ function toggleFavV(title, btn) {
   refreshLibChips();
   renderLib();
 }
-function addTag(title, src, idx) {
-  const input = document.getElementById(`ti-${src}-${idx}`);
+function addTag(title, src, idx, panel) {
+  const input = document.getElementById(`ti-${panel}-${src}-${idx}`);
   const tag = input.value.trim(); if (!tag) return;
   if (!tags[title]) tags[title] = [];
   if (!tags[title].includes(tag)) {
     tags[title].push(tag); persist();
-    refreshTagDisp(title, src, idx); refreshLibChips(); renderLib();
+    refreshTagDisp(title, src, idx, panel); refreshLibChips(); renderLib();
   }
   input.value = '';
 }
-function rmTag(title, tag, src, idx) {
+function rmTag(title, tag, src, idx, panel) {
   if (!tags[title]) return;
   tags[title] = tags[title].filter(t => t !== tag);
   if (!tags[title].length) delete tags[title];
@@ -1218,14 +1218,14 @@ function rmTag(title, tag, src, idx) {
   if (tagFilter === tag && !allTagsList().includes(tag)) {
     tagFilter = 'all';
   }
-  persist(); refreshTagDisp(title, src, idx); refreshLibChips(); renderLib();
+  persist(); refreshTagDisp(title, src, idx, panel); refreshLibChips(); renderLib();
 }
-function refreshTagDisp(title, src, idx) {
-  const el = document.getElementById(`td-${src}-${idx}`);
+function refreshTagDisp(title, src, idx, panel) {
+  const el = document.getElementById(`td-${panel}-${src}-${idx}`);
   if (!el) return;
   const stags = tags[title] || [];
   const safeTitle = esc(title);
-  el.innerHTML = stags.map(t => `<span class="tag-rm">${esc(t)}<button onclick="rmTag('${safeTitle}','${esc(t)}','${src}','${idx}')">×</button></span>`).join('');
+  el.innerHTML = stags.map(t => `<span class="tag-rm">${esc(t)}<button onclick="rmTag('${safeTitle}','${esc(t)}','${src}','${idx}','${panel}')">×</button></span>`).join('');
 }
 
 function openEditModal(idx) {
