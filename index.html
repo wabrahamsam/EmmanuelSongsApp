@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0d0a06" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#eef4f0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0d0b" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Songs of Emmanuel">
@@ -14,12 +14,12 @@
 <style>
 
 :root {
-  --bg:#f7f3ec;--bg2:#efe9de;--surface:#ffffff;--surface2:rgba(0,0,0,0.04);
+  --bg:#eef4f0;--bg2:#e2ebe4;--surface:#ffffff;--surface2:rgba(0,0,0,0.04);
   --border:rgba(0,0,0,0.1);--border-gold:rgba(45,92,69,0.35);
-  --text:#0f0a04;--text3:#4a4440;--tab-inactive:#4a3a22;--viewer-title-color:#1a1410;
+  --text:#0f0a04;--text3:#57534f;--tab-inactive:#3a3a38;--viewer-title-color:#1a1410;
   --gold:#2d5c45;--gold-bg:rgba(45,92,69,0.1);--gold-bg2:rgba(45,92,69,0.06);
   --refrain-color:#3a3a3a;--refrain-bg:rgba(0,0,0,0.04);
-  --meta-color:#726f6a;
+  --meta-color:#6b6864;
   --star:#3d7a5c;--tag-bg:rgba(45,92,69,0.12);--tag-text:#1f4a35;
   --btn-bg:linear-gradient(135deg,#234a38,#3d8a63);--btn-text:#fff;
   --success-bg:rgba(40,100,40,0.12);--success-border:rgba(40,110,40,0.4);--success-text:#1e5c1e;
@@ -29,20 +29,20 @@
   --tab-font-size:12.5px;--settings-font-size:16px;
 }
 @media(prefers-color-scheme:dark){:root{
-  --bg:#0d0a06;--bg2:#1a1208;--surface:rgba(245,234,214,0.05);--surface2:rgba(245,234,214,0.08);
+  --bg:#0a0d0b;--bg2:#141a16;--surface:rgba(234,245,238,0.05);--surface2:rgba(234,245,238,0.08);
   --border:rgba(201,168,76,0.15);--border-gold:rgba(92,181,131,0.3);
-  --text:#fbf6ea;--text3:#c0b8b0;--tab-inactive:#c4b896;--viewer-title-color:#e8e0d8;
+  --text:#fbf6ea;--text3:#b8b4ae;--tab-inactive:#b0aca6;--viewer-title-color:#e8e0d8;
   --gold:#5cb583;--gold-bg:rgba(92,181,131,0.12);--gold-bg2:rgba(92,181,131,0.06);
   --refrain-color:#d8d5cc;--refrain-bg:rgba(255,255,255,0.05);
-  --meta-color:#9a9690;
+  --meta-color:#94908a;
   --star:#5cb583;--tag-bg:rgba(92,181,131,0.15);--tag-text:#a8e0c0;
   --btn-bg:linear-gradient(135deg,#2d5c45,#5cb583);--btn-text:#0d1a12;
   --success-bg:rgba(60,100,60,0.2);--success-border:rgba(100,160,100,0.3);--success-text:#a8d4a8;
   --error-bg:rgba(100,40,40,0.2);--error-border:rgba(160,80,80,0.3);--error-text:#d4a0a0;
   --menu-bg:#2a2010;--menu-shadow:rgba(0,0,0,0.5);
 }}
-body.theme-light{--bg:#f7f3ec;--bg2:#efe9de;--surface:#ffffff;--surface2:rgba(0,0,0,0.04);--border:rgba(0,0,0,0.1);--border-gold:rgba(45,92,69,0.35);--text:#0f0a04;--text3:#4a4440;--tab-inactive:#4a3a22;--viewer-title-color:#1a1410;--gold:#2d5c45;--gold-bg:rgba(45,92,69,0.1);--gold-bg2:rgba(45,92,69,0.06);--refrain-color:#3a3a3a;--refrain-bg:rgba(0,0,0,0.04);--meta-color:#726f6a;--tag-bg:rgba(45,92,69,0.12);--tag-text:#1f4a35;--btn-bg:linear-gradient(135deg,#234a38,#3d8a63);--btn-text:#fff;--menu-bg:#ffffff;--menu-shadow:rgba(0,0,0,0.15);--success-bg:rgba(40,100,40,0.12);--success-border:rgba(40,110,40,0.4);--success-text:#1e5c1e;--error-bg:rgba(160,40,40,0.12);--error-border:rgba(160,40,40,0.4);--error-text:#7a1818;}
-body.theme-dark{--bg:#0d0a06;--bg2:#1a1208;--surface:rgba(245,234,214,0.05);--surface2:rgba(245,234,214,0.08);--border:rgba(201,168,76,0.15);--border-gold:rgba(92,181,131,0.3);--text:#fbf6ea;--text3:#c0b8b0;--tab-inactive:#c4b896;--viewer-title-color:#e8e0d8;--gold:#5cb583;--gold-bg:rgba(92,181,131,0.12);--gold-bg2:rgba(92,181,131,0.06);--refrain-color:#d8d5cc;--refrain-bg:rgba(255,255,255,0.05);--meta-color:#9a9690;--tag-bg:rgba(92,181,131,0.15);--tag-text:#a8e0c0;--btn-bg:linear-gradient(135deg,#2d5c45,#5cb583);--btn-text:#0d1a12;--menu-bg:#2a2010;--menu-shadow:rgba(0,0,0,0.5);--success-bg:rgba(60,100,60,0.2);--success-border:rgba(100,160,100,0.3);--success-text:#a8d4a8;--error-bg:rgba(100,40,40,0.2);--error-border:rgba(160,80,80,0.3);--error-text:#d4a0a0;}
+body.theme-light{--bg:#eef4f0;--bg2:#e2ebe4;--surface:#ffffff;--surface2:rgba(0,0,0,0.04);--border:rgba(0,0,0,0.1);--border-gold:rgba(45,92,69,0.35);--text:#0f0a04;--text3:#57534f;--tab-inactive:#3a3a38;--viewer-title-color:#1a1410;--gold:#2d5c45;--gold-bg:rgba(45,92,69,0.1);--gold-bg2:rgba(45,92,69,0.06);--refrain-color:#3a3a3a;--refrain-bg:rgba(0,0,0,0.04);--meta-color:#6b6864;--tag-bg:rgba(45,92,69,0.12);--tag-text:#1f4a35;--btn-bg:linear-gradient(135deg,#234a38,#3d8a63);--btn-text:#fff;--menu-bg:#ffffff;--menu-shadow:rgba(0,0,0,0.15);--success-bg:rgba(40,100,40,0.12);--success-border:rgba(40,110,40,0.4);--success-text:#1e5c1e;--error-bg:rgba(160,40,40,0.12);--error-border:rgba(160,40,40,0.4);--error-text:#7a1818;}
+body.theme-dark{--bg:#0a0d0b;--bg2:#141a16;--surface:rgba(234,245,238,0.05);--surface2:rgba(234,245,238,0.08);--border:rgba(201,168,76,0.15);--border-gold:rgba(92,181,131,0.3);--text:#fbf6ea;--text3:#b8b4ae;--tab-inactive:#b0aca6;--viewer-title-color:#e8e0d8;--gold:#5cb583;--gold-bg:rgba(92,181,131,0.12);--gold-bg2:rgba(92,181,131,0.06);--refrain-color:#d8d5cc;--refrain-bg:rgba(255,255,255,0.05);--meta-color:#94908a;--tag-bg:rgba(92,181,131,0.15);--tag-text:#a8e0c0;--btn-bg:linear-gradient(135deg,#2d5c45,#5cb583);--btn-text:#0d1a12;--menu-bg:#2a2010;--menu-shadow:rgba(0,0,0,0.5);--success-bg:rgba(60,100,60,0.2);--success-border:rgba(100,160,100,0.3);--success-text:#a8d4a8;--error-bg:rgba(100,40,40,0.2);--error-border:rgba(160,80,80,0.3);--error-text:#d4a0a0;}
 body.text-sm{--lyric-size:14px;}
 body.text-md{--lyric-size:17px;}
 body.text-lg{--lyric-size:21px;}
@@ -215,10 +215,13 @@ select{padding:10px 13px;}select option{background:var(--bg2);color:var(--text);
 .present-body .ll.col-row .col-left,.present-body .ll.col-row .col-right{flex:1;text-align:center;}
 .present-body .ll.col-row.meta-row{font-size:0.45em;font-style:italic;color:var(--meta-color);}
 .present-body .ll.col-row.refrain-row .col-left,.present-body .ll.col-row.refrain-row .col-right{font-style:italic;color:var(--refrain-color);}
-.present-exit{position:absolute;top:16px;right:16px;background:var(--surface);border:1px solid var(--border);border-radius:50%;width:40px;height:40px;color:var(--text3);font-size:18px;cursor:pointer;z-index:401;}
-.present-fullscreen-btn{position:absolute;top:16px;right:64px;background:var(--surface);border:1px solid var(--border);border-radius:50%;width:40px;height:40px;color:var(--text3);font-size:16px;cursor:pointer;z-index:401;}
+.present-exit{position:absolute;top:16px;right:16px;background:var(--surface);border:1px solid var(--border);border-radius:50%;width:40px;height:40px;color:var(--text3);font-size:18px;cursor:pointer;z-index:401;opacity:.55;transition:opacity .2s;}
+.present-exit:active,.present-exit:focus{opacity:1;}
+.present-fullscreen-btn{position:absolute;top:16px;right:64px;background:var(--surface);border:1px solid var(--border);border-radius:50%;width:40px;height:40px;color:var(--text3);font-size:16px;cursor:pointer;z-index:401;opacity:.55;transition:opacity .2s;}
+.present-fullscreen-btn:active,.present-fullscreen-btn:focus{opacity:1;}
 .present-counter{position:absolute;bottom:16px;right:20px;font-family:'Cinzel',serif;font-size:11px;color:var(--text3);letter-spacing:.08em;opacity:.7;}
-.present-arrow{position:absolute;top:50%;transform:translateY(-50%);background:var(--surface);border:1px solid var(--border);border-radius:50%;width:48px;height:48px;color:var(--gold);font-size:26px;cursor:pointer;z-index:401;display:flex;align-items:center;justify-content:center;}
+.present-arrow{position:absolute;top:50%;transform:translateY(-50%);background:var(--surface);border:1px solid var(--border);border-radius:50%;width:48px;height:48px;color:var(--gold);font-size:26px;cursor:pointer;z-index:401;display:flex;align-items:center;justify-content:center;opacity:.35;transition:opacity .2s;}
+.present-arrow:active,.present-arrow:focus{opacity:.9;}
 .present-arrow-left{left:10px;}
 .present-arrow-right{right:10px;}
 @media(max-width:600px){
@@ -417,7 +420,7 @@ footer{text-align:center;margin-top:40px;padding-top:14px;border-top:1px solid v
     </div>
     <div class="accordion-body" id="acc-about">
       <div style="font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin-bottom:2px;">Songs of Emmanuel</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.20</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.21</div>
       <div class="about-body">
         <strong>Emmanuel Bible Institute</strong><br>
         Tenkasi, Tamil Nadu, India<br>
@@ -668,83 +671,188 @@ document.addEventListener('click', e => {
 });
 
 // ──────────────────────────────────────────────────────────
-// Fix 6: History API navigation — pushState/popstate
-// Screen stack model: each in-app "screen" is a history entry.
-// States: {screen: 'songs-list'|'songs-viewer'|'songs-results'|'library-list'|'library-viewer'|'library-results'|'more'}
-// We push a state whenever the user navigates *forward* (tab switch that changes view, opening a song,
-// entering search results). Back/forward browser buttons trigger popstate, which we use to restore the
-// correct view WITHOUT pushing a new state (avoids loops).
+// Tab-scoped back navigation.
+//
+// Each tab has its own small depth, capped at 3 levels:
+//   0 = list (the tab's default/home screen)
+//   1 = results (search results, Songs/Library only)
+//   2 = viewer (a song open for reading)
+//
+// Android/browser back always steps back ONE level within the CURRENT tab only —
+// it never jumps to a different tab. Switching tabs resets that tab's depth to 0
+// (its default list) and does not touch the other tab's depth at all. When a tab
+// is already at depth 0, back is not intercepted, so the browser's native back
+// (leaving the app) takes over — this is the correct, predictable terminal case.
+//
+// We keep exactly ONE history entry pushed at a time, whose state records
+// {tab, depth, ...any screen-specific data needed to restore that depth}.
+// Moving forward (opening a song, entering search) pushes a new entry.
+// Moving back within the app is driven by our own back-button UI (the actual
+// "← Back to..." links), which call goBackWithinTab() — this REPLACES the current
+// history entry with the previous depth's state, rather than relying on the
+// browser popstate to reconstruct it. That keeps our own in-app back links and
+// the hardware/gesture back button perfectly in sync, since both ultimately
+// go through the same history entry.
 // ──────────────────────────────────────────────────────────
 
-let suppressPush = false; // true while we are restoring from a popstate, so we don't re-push
+let tabDepth = { songs: 0, library: 0 }; // 0 = list, 1 = results, 2 = viewer
+let tabScreenData = { songs: {}, library: {} }; // extra data needed to restore each tab's current screen
 
-function pushScreen(state, replace) {
-  if (suppressPush) return;
+function currentTabState(tab) {
+  return { tab, depth: tabDepth[tab], data: { ...tabScreenData[tab] } };
+}
+
+function pushTabState(tab, replace) {
+  const state = currentTabState(tab);
   const fn = replace ? 'replaceState' : 'pushState';
   history[fn](state, '', '');
 }
 
-function applyScreenState(state, fromPopstate) {
-  if (!state) { hardGoHome(fromPopstate); return; }
-  const isViewerScreen = state.screen === 'songs-viewer' || state.screen === 'library-viewer';
-  if (presentState.active && !isViewerScreen) {
-    exitPresentMode();
-  }
-  // Popping back (e.g. Android back button) to any non-viewer screen means the user
-  // has navigated away from whatever song was open — clear viewerState so a later
-  // rotation doesn't mistakenly re-enter presentation mode for a song no longer in view.
-  if (!isViewerScreen) {
+// Called once on load to establish a baseline history entry.
+function initHistory() {
+  history.replaceState(currentTabState('songs'), '', '');
+}
+
+// ── Public navigation entry points, rebuilt on the tab-scoped model ──
+
+// Songs tab button / true home: clear search, show full list, dismiss viewer.
+function goHome() {
+  if (presentState.active) exitPresentMode();
+  goBackInTab('songs', 0, {});
+}
+
+// Library tab button / true home: same pattern as goHome.
+function libHome() {
+  if (presentState.active) exitPresentMode();
+  goBackInTab('library', 0, { tagFilter });
+}
+
+function switchTab(t) {
+  if (presentState.active) exitPresentMode();
+  if (t === 'songs') { goHome(); return; }
+  if (t === 'library') { libHome(); return; }
+  if (t === 'more') {
     viewerState = { panel: null, src: null, idx: null, fromSearch: false };
+    showTabUI('more');
+    // 'More' has no sub-states of its own; treat it as a lightweight overlay on
+    // top of whichever tab's depth is currently recorded, so back from More
+    // simply returns to that tab exactly where it was.
+    return;
   }
-  suppressPush = true;
-  try {
-    if (state.screen === 'songs-list') {
-      showTabUI('songs');
-      document.getElementById('songs-list-view').style.display = 'block';
-      document.getElementById('songs-viewer').style.display = 'none';
-    } else if (state.screen === 'songs-results') {
-      showTabUI('songs');
-      if (state.q != null) document.getElementById('songs-q').value = state.q;
-      document.getElementById('songs-clear').classList.toggle('vis', !!state.q);
+}
+
+// Dismiss the viewer (e.g. after deleting a user-added song) and return to that
+// tab's list, replacing the (now possibly stale) viewer history entry.
+function backTo(panel, scroll) {
+  if (scroll === undefined) scroll = true;
+  if (presentState.active) exitPresentMode();
+  goBackInTab(panel, 0, panel === 'library' ? { tagFilter } : {});
+  if (scroll) window.scrollTo(0, 0);
+}
+
+// Back to search results — Songs tab.
+function backToResults() {
+  const q = document.getElementById('songs-q').value || '';
+  goBackInTab('songs', 1, { q });
+}
+
+// Back to search results — Library tab.
+function backToLibResults() {
+  const q = document.getElementById('lib-q').value || '';
+  goBackInTab('library', 1, { q, tagFilter });
+}
+
+// "Back to full list" link shown above search results.
+function backToFullSongsList() {
+  goBackInTab('songs', 0, {});
+  document.getElementById('songs-q').value = '';
+  document.getElementById('songs-clear').classList.remove('vis');
+  hideAC();
+  renderSongs();
+}
+function backToFullLibList() {
+  goBackInTab('library', 0, { tagFilter });
+  document.getElementById('lib-q').value = '';
+  document.getElementById('lib-clear').classList.remove('vis');
+  renderLib();
+}
+
+window.addEventListener('popstate', e => {
+  const state = e.state;
+  if (!state || state.depth === 0) {
+    // Either no state (shouldn't normally happen) or already at a tab's list —
+    // don't intercept; let the browser's native back proceed (e.g. exit the app).
+    // We still make sure the UI reflects the list view in this case, in case the
+    // state is missing tab info.
+    if (state && state.tab) {
+      tabDepth[state.tab] = 0;
+      restoreTabToDepth(state.tab, 0, {});
+    }
+    return;
+  }
+  // Step back within this tab by one level and restore that screen.
+  const tab = state.tab;
+  tabDepth[tab] = state.depth;
+  tabScreenData[tab] = state.data || {};
+  restoreTabToDepth(tab, state.depth, state.data || {});
+});
+
+// Restores the given tab's UI to the given depth, using the provided screen data
+// (search query, tagFilter, which song, etc.) — used both by popstate and by our
+// own in-app back links, so there is exactly one code path for "show me depth N".
+function restoreTabToDepth(tab, depth, data) {
+  if (presentState.active) exitPresentMode();
+  viewerState = { panel: null, src: null, idx: null, fromSearch: false };
+  showTabUI(tab);
+
+  if (tab === 'songs') {
+    if (depth === 0) {
+      document.getElementById('songs-q').value = '';
+      document.getElementById('songs-clear').classList.remove('vis');
+      hideAC();
       renderSongs();
       document.getElementById('songs-list-view').style.display = 'block';
       document.getElementById('songs-viewer').style.display = 'none';
-    } else if (state.screen === 'songs-viewer') {
-      showTabUI('songs');
-      if (state.q != null) document.getElementById('songs-q').value = state.q;
-      renderSongViewerOnly(state.src, state.idx, 'songs', !!state.fromSearch);
+    } else if (depth === 1) {
+      document.getElementById('songs-q').value = data.q || '';
+      document.getElementById('songs-clear').classList.toggle('vis', !!data.q);
+      renderSongs();
+      document.getElementById('songs-list-view').style.display = 'block';
+      document.getElementById('songs-viewer').style.display = 'none';
+    } else if (depth === 2) {
+      document.getElementById('songs-q').value = data.q || '';
+      renderSongViewerOnlyForTab('songs', data.src, data.idx, !!data.fromSearch);
       document.getElementById('songs-list-view').style.display = 'none';
       document.getElementById('songs-viewer').style.display = 'block';
-    } else if (state.screen === 'library-list') {
-      showTabUI('library');
-      tagFilter = state.tagFilter || 'all';
+    }
+  } else if (tab === 'library') {
+    tagFilter = data.tagFilter || 'all';
+    if (depth === 0) {
+      document.getElementById('lib-q').value = '';
+      document.getElementById('lib-clear').classList.remove('vis');
       refreshLibChips(); renderLib();
       document.getElementById('library-list-view').style.display = 'block';
       document.getElementById('library-viewer').style.display = 'none';
-    } else if (state.screen === 'library-results') {
-      showTabUI('library');
-      tagFilter = state.tagFilter || 'all';
-      if (state.q != null) document.getElementById('lib-q').value = state.q;
-      document.getElementById('lib-clear').classList.toggle('vis', !!state.q);
+    } else if (depth === 1) {
+      document.getElementById('lib-q').value = data.q || '';
+      document.getElementById('lib-clear').classList.toggle('vis', !!data.q);
       refreshLibChips(); renderLib();
       document.getElementById('library-list-view').style.display = 'block';
       document.getElementById('library-viewer').style.display = 'none';
-    } else if (state.screen === 'library-viewer') {
-      showTabUI('library');
-      tagFilter = state.tagFilter || 'all';
-      if (state.q != null) document.getElementById('lib-q').value = state.q;
-      renderSongViewerOnly(state.src, state.idx, 'library', !!state.fromSearch);
+    } else if (depth === 2) {
+      document.getElementById('lib-q').value = data.q || '';
+      renderSongViewerOnlyForTab('library', data.src, data.idx, !!data.fromSearch);
       document.getElementById('library-list-view').style.display = 'none';
       document.getElementById('library-viewer').style.display = 'block';
-    } else if (state.screen === 'more') {
-      showTabUI('more');
-    } else {
-      hardGoHome(true);
     }
-    window.scrollTo(0, 0);
-  } finally {
-    suppressPush = false;
   }
+  window.scrollTo(0, 0);
+}
+
+// Thin wrapper so viewer restoration works the same way regardless of whether it's
+// triggered by popstate or by a direct in-app call.
+function renderSongViewerOnlyForTab(panel, src, idx, fromSearch) {
+  renderSongViewerOnly(src, idx, panel, fromSearch);
 }
 
 function showTabUI(t) {
@@ -754,114 +862,22 @@ function showTabUI(t) {
   });
 }
 
-window.addEventListener('popstate', e => {
-  applyScreenState(e.state, true);
-});
-
-function hardGoHome(skipPush) {
-  if (presentState.active) exitPresentMode();
-  viewerState = { panel: null, src: null, idx: null, fromSearch: false };
-  showTabUI('songs');
-  document.getElementById('songs-q').value = '';
-  document.getElementById('songs-clear').classList.remove('vis');
-  hideAC();
-  document.getElementById('songs-list-view').style.display = 'block';
-  document.getElementById('songs-viewer').style.display = 'none';
-  renderSongs();
-  if (!skipPush) pushScreen({ screen: 'songs-list' }, true);
+// Moves a tab FORWARD to a new depth (opening search results, opening a viewer) —
+// pushes a new history entry so the hardware back button can undo this step later.
+function goForwardInTab(tab, depth, data) {
+  tabDepth[tab] = depth;
+  tabScreenData[tab] = data || {};
+  pushTabState(tab, false);
 }
 
-// ── TABS ──
-function switchTab(t) {
-  if (presentState.active) exitPresentMode();
-  viewerState = { panel: null, src: null, idx: null, fromSearch: false };
-  showTabUI(t);
-  if (t === 'library') {
-    // Going to Library tab always resets to the (chip-filtered) full list — fix from earlier + fix 10 (fresh render)
-    const hadSearch = (document.getElementById('lib-q').value || '').trim().length > 0;
-    document.getElementById('lib-q').value = '';
-    document.getElementById('lib-clear').classList.remove('vis');
-    document.getElementById('library-list-view').style.display = 'block';
-    document.getElementById('library-viewer').style.display = 'none';
-    renderLib();
-    pushScreen({ screen: 'library-list', tagFilter });
-  } else if (t === 'more') {
-    pushScreen({ screen: 'more' });
-  }
-}
-
-// Songs tab = true home: clear search, show full list, dismiss viewer
-function goHome() {
-  hardGoHome(false);
-}
-
-// Library tab = true home: same pattern as goHome
-function libHome() {
-  if (presentState.active) exitPresentMode();
-  viewerState = { panel: null, src: null, idx: null, fromSearch: false };
-  showTabUI('library');
-  const hadSearch = (document.getElementById('lib-q').value || '').trim().length > 0;
-  document.getElementById('lib-q').value = '';
-  document.getElementById('lib-clear').classList.remove('vis');
-  document.getElementById('library-list-view').style.display = 'block';
-  document.getElementById('library-viewer').style.display = 'none';
-  renderLib();
-  pushScreen({ screen: 'library-list', tagFilter });
-}
-
-function backTo(panel, scroll) {
-  if (presentState.active) exitPresentMode();
-  if (scroll === undefined) scroll = true;
-  document.getElementById(panel+'-list-view').style.display = 'block';
-  document.getElementById(panel+'-viewer').style.display = 'none';
-  viewerState = { panel: null, src: null, idx: null, fromSearch: false };
-  // The song that was being viewed may have just been deleted, so its pushed
-  // history entry (songs-viewer/library-viewer, pointing at that index) is now
-  // stale. Replace it with a valid list entry so a later back-press doesn't try
-  // to re-render a viewer for a song that no longer exists.
-  if (panel === 'songs') {
-    pushScreen({ screen: 'songs-list' }, true);
-  } else if (panel === 'library') {
-    pushScreen({ screen: 'library-list', tagFilter }, true);
-  }
-  if (scroll) window.scrollTo(0, 0);
-}
-
-// Back to search results — Songs tab
-function backToResults() {
-  if (presentState.active) exitPresentMode();
-  viewerState = { panel: null, src: null, idx: null, fromSearch: false };
-  document.getElementById('songs-list-view').style.display = 'block';
-  document.getElementById('songs-viewer').style.display = 'none';
-  window.scrollTo(0, 0);
-  const q = document.getElementById('songs-q').value || '';
-  pushScreen({ screen: 'songs-results', q });
-}
-
-// Back to search results — Library tab
-function backToLibResults() {
-  if (presentState.active) exitPresentMode();
-  viewerState = { panel: null, src: null, idx: null, fromSearch: false };
-  document.getElementById('library-list-view').style.display = 'block';
-  document.getElementById('library-viewer').style.display = 'none';
-  window.scrollTo(0, 0);
-  const q = document.getElementById('lib-q').value || '';
-  pushScreen({ screen: 'library-results', q, tagFilter });
-}
-
-// Fix 9: "back to full list" from search results (without using the clear-X button)
-function backToFullSongsList() {
-  document.getElementById('songs-q').value = '';
-  document.getElementById('songs-clear').classList.remove('vis');
-  hideAC();
-  renderSongs();
-  pushScreen({ screen: 'songs-list' }, true);
-}
-function backToFullLibList() {
-  document.getElementById('lib-q').value = '';
-  document.getElementById('lib-clear').classList.remove('vis');
-  renderLib();
-  pushScreen({ screen: 'library-list', tagFilter }, true);
+// Moves a tab BACKWARD to a shallower depth, triggered by our own in-app
+// "← Back to..." links — REPLACES the current history entry (rather than relying
+// on the browser's popstate) so hardware back and in-app back links stay in sync.
+function goBackInTab(tab, depth, data) {
+  tabDepth[tab] = depth;
+  tabScreenData[tab] = data || {};
+  restoreTabToDepth(tab, depth, data || {});
+  pushTabState(tab, true);
 }
 
 // ── SEARCH + AUTOCOMPLETE (Songs) ──
@@ -876,7 +892,7 @@ function clearSongsSearch() {
   document.getElementById('songs-clear').classList.remove('vis');
   hideAC(); renderSongs();
   document.getElementById('songs-q').focus();
-  pushScreen({ screen: 'songs-list' }, true);
+  goBackInTab('songs', 0, {});
 }
 
 // Fix 1 (exact-number search support): if query is purely numeric, match by page number
@@ -913,9 +929,9 @@ function onSongsKey(e) {
       selectAC(it.dataset.src, parseInt(it.dataset.idx));
     } else {
       hideAC();
-      // Push a results state so the back button correctly returns to the full list
+      // Move this tab's depth to "results" so back correctly returns to the full list
       const q = document.getElementById('songs-q').value || '';
-      if (q.trim()) pushScreen({ screen: 'songs-results', q });
+      if (q.trim()) goForwardInTab('songs', 1, { q });
     }
     return;
   }
@@ -935,7 +951,7 @@ function clearLibSearch() {
   document.getElementById('lib-q').value = '';
   document.getElementById('lib-clear').classList.remove('vis');
   renderLib();
-  pushScreen({ screen: 'library-list', tagFilter }, true);
+  goBackInTab('library', 0, { tagFilter });
 }
 // Fix 4 also applies to library search field — no autocomplete dropdown there currently,
 // but Enter should not cause any odd behavior; default form-less input already just does nothing extra.
@@ -1065,10 +1081,10 @@ function openSong(src, idx, panel) {
 
   if (panel === 'songs') {
     const q = document.getElementById('songs-q').value || '';
-    pushScreen({ screen: 'songs-viewer', src, idx, fromSearch, q });
+    goForwardInTab('songs', 2, { src, idx, fromSearch, q });
   } else if (panel === 'library') {
     const q = document.getElementById('lib-q').value || '';
-    pushScreen({ screen: 'library-viewer', src, idx, fromSearch, q, tagFilter });
+    goForwardInTab('library', 2, { src, idx, fromSearch, q, tagFilter });
   }
   maybeEnterPresentMode();
 }
@@ -1306,10 +1322,11 @@ function refreshLibChips() {
 function setFilter(t) {
   tagFilter = t; refreshLibChips(); renderLib();
   // Tag filter changes are a within-screen refinement of the Library list, not a
-  // separate navigable screen — replace the current history entry's tagFilter
-  // rather than pushing a new one, so back doesn't require stepping through
-  // every filter chip tapped along the way.
-  pushScreen({ screen: 'library-list', tagFilter }, true);
+  // separate navigable screen — update this tab's current depth's stored data
+  // (so a later restore uses the right filter) without changing depth or requiring
+  // an extra back-press to undo.
+  tabScreenData.library = { ...tabScreenData.library, tagFilter };
+  pushTabState('library', true);
 }
 
 // Fix 5: pool built from pre-sorted lists rather than re-sorting on every call
@@ -1718,7 +1735,7 @@ renderSongs();
 refreshLibChips();
 renderLib();
 // Establish the initial history state so popstate has something sane to land on
-history.replaceState({ screen: 'songs-list' }, '', '');
+initHistory();
 
 // Register the real, static service worker file (not a runtime blob URL), so the
 // browser can properly re-fetch/revalidate it across cold app restarts, including
