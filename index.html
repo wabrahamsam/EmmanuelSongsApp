@@ -420,7 +420,7 @@ footer{text-align:center;margin-top:40px;padding-top:14px;border-top:1px solid v
     </div>
     <div class="accordion-body" id="acc-about">
       <div style="font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin-bottom:2px;">Songs of Emmanuel</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.21</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.22</div>
       <div class="about-body">
         <strong>Emmanuel Bible Institute</strong><br>
         Tenkasi, Tamil Nadu, India<br>
@@ -927,11 +927,13 @@ function onSongsKey(e) {
       e.preventDefault();
       const it = items[acIdx];
       selectAC(it.dataset.src, parseInt(it.dataset.idx));
+      document.getElementById('songs-q').blur();
     } else {
       hideAC();
       // Move this tab's depth to "results" so back correctly returns to the full list
       const q = document.getElementById('songs-q').value || '';
       if (q.trim()) goForwardInTab('songs', 1, { q });
+      document.getElementById('songs-q').blur();
     }
     return;
   }
