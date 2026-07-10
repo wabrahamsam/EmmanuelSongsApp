@@ -220,6 +220,13 @@ select{padding:10px 13px;}select option{background:var(--bg2);color:var(--text);
 .present-fullscreen-btn{position:absolute;top:16px;right:64px;background:var(--surface);border:1px solid var(--border);border-radius:50%;width:40px;height:40px;color:var(--text3);font-size:16px;cursor:pointer;z-index:401;opacity:.55;transition:opacity .2s;}
 .present-fullscreen-btn:active,.present-fullscreen-btn:focus{opacity:1;}
 .present-counter{position:absolute;bottom:16px;right:20px;font-family:'Cinzel',serif;font-size:11px;color:var(--text3);letter-spacing:.08em;opacity:.7;}
+.present-jump-btn{position:absolute;top:16px;left:16px;background:var(--surface);border:1px solid var(--border);border-radius:50%;width:40px;height:40px;color:var(--text3);font-size:16px;cursor:pointer;z-index:401;opacity:.55;transition:opacity .2s;}
+.present-jump-btn:active,.present-jump-btn:focus{opacity:1;}
+.present-jump-menu{position:absolute;top:0;left:0;bottom:0;width:min(280px,70vw);background:var(--surface);border-right:1px solid var(--border);z-index:402;display:none;flex-direction:column;overflow-y:auto;padding:56px 0 16px;box-shadow:4px 0 20px rgba(0,0,0,.15);}
+.present-jump-menu.vis{display:flex;}
+.jump-menu-item{background:none;border:none;border-bottom:1px solid var(--border);text-align:left;padding:12px 16px;font-family:'Crimson Pro',serif;font-size:14px;color:var(--text);cursor:pointer;}
+.jump-menu-item:hover{background:var(--surface2);}
+.jump-menu-item.current{background:var(--gold-bg);color:var(--gold);font-weight:600;}
 .present-arrow{position:absolute;top:50%;transform:translateY(-50%);background:var(--surface);border:1px solid var(--border);border-radius:50%;width:48px;height:48px;color:var(--gold);font-size:26px;cursor:pointer;z-index:401;display:flex;align-items:center;justify-content:center;opacity:.35;transition:opacity .2s;}
 .present-arrow:active,.present-arrow:focus{opacity:.9;}
 .present-arrow-left{left:10px;}
@@ -420,7 +427,7 @@ footer{text-align:center;margin-top:40px;padding-top:14px;border-top:1px solid v
     </div>
     <div class="accordion-body" id="acc-about">
       <div style="font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin-bottom:2px;">Songs of Emmanuel</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.24</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.25</div>
       <div class="about-body">
         <strong>Emmanuel Bible Institute</strong><br>
         Tenkasi, Tamil Nadu, India<br>
@@ -457,6 +464,8 @@ footer{text-align:center;margin-top:40px;padding-top:14px;border-top:1px solid v
 <div id="present-overlay" class="present-overlay" ontouchstart="presentTouchStart(event)" ontouchend="presentTouchEnd(event)">
   <button class="present-exit" onclick="exitPresentMode()">✕</button>
   <button id="present-fullscreen-btn" class="present-fullscreen-btn" onclick="toggleManualFullscreen()" aria-label="Toggle fullscreen">⛶</button>
+  <button class="present-jump-btn" onclick="toggleJumpMenu()" aria-label="Jump to section">☰</button>
+  <div id="present-jump-menu" class="present-jump-menu"></div>
   <div id="present-counter" class="present-counter"></div>
   <button class="present-arrow present-arrow-left" onclick="presentPrev()" aria-label="Previous section">‹</button>
   <div id="present-slide" class="present-slide"></div>
@@ -1554,9 +1563,14 @@ function splitIntoSections(raw) {
   // Render each section's lines using the same per-line rules as formatLyrics,
   // but scoped to just that section (state doesn't need to carry across sections
   // since refrain state always resets at the blank lines that delimit sections).
+  // Also compute a short "preview" label from the first genuine lyric line (skipping
+  // meta/header lines like call-and-response headers or bracketed labels), used for
+  // the section jump-menu so the user can recognize which verse/refrain each entry is.
   return lyricSections.map(secLines => {
     let html = '';
     let inRefrain = false;
+    let preview = '';
+
     secLines.forEach(line => {
       const trimmed = line.trim();
       if (trimmed.startsWith('{Group')) {
@@ -1570,6 +1584,8 @@ function splitIntoSections(raw) {
       }
       if (trimmed.startsWith('§') && trimmed.endsWith('§')) {
         const inner = trimmed.slice(1, -1);
+        let plainForPreview = inner.includes('~~~') ? inner.split('~~~')[0] : inner;
+        if (!preview && plainForPreview.trim()) preview = plainForPreview.trim();
         if (inner.includes('~~~')) {
           const [l, r] = inner.split('~~~');
           html += `<span class="ll col-row refrain-row"><span class="col-left">${esc(l)}</span><span class="col-right">${esc(r)}</span></span>`;
@@ -1581,13 +1597,16 @@ function splitIntoSections(raw) {
       if (/^\[[^\]]+\]\*?$/.test(trimmed)) { html += `<span class="ll meta">${esc(trimmed)}</span>`; return; }
       if (trimmed.includes('~~~')) {
         const [l, r] = line.split('~~~');
+        if (!preview && l.trim()) preview = l.trim();
         html += `<span class="ll col-row"><span class="col-left">${esc(l)}</span><span class="col-right">${esc(r)}</span></span>`;
         return;
       }
       if (/^(refrain|chorus)\s*:/i.test(trimmed)) { inRefrain = true; html += `<span class="ll sec-lbl">${esc(trimmed)}</span>`; return; }
+      if (!preview && trimmed) preview = trimmed;
       html += `<span class="ll ${inRefrain ? 'refrain' : ''}">${esc(line)}</span>`;
     });
-    return html;
+
+    return { html, preview: preview || '…' };
   });
 }
 
@@ -1661,6 +1680,8 @@ function updateFullscreenBtnState() {
 function exitPresentMode() {
   presentState.active = false;
   document.getElementById('present-overlay').classList.remove('vis');
+  const jumpMenu = document.getElementById('present-jump-menu');
+  if (jumpMenu) jumpMenu.classList.remove('vis');
   // Exit fullscreen if we're in it
   try {
     if (document.fullscreenElement || document.webkitFullscreenElement) {
@@ -1674,8 +1695,46 @@ function renderPresentSlide() {
   const wrap = document.getElementById('present-slide');
   const counter = document.getElementById('present-counter');
   if (!wrap) return;
-  wrap.innerHTML = `<div class="present-body">${presentState.sections[presentState.idx]}</div>`;
+  const section = presentState.sections[presentState.idx];
+  wrap.innerHTML = `<div class="present-body">${section.html}</div>`;
   if (counter) counter.textContent = `${presentState.idx + 1} / ${presentState.sections.length}`;
+  refreshJumpMenuHighlight();
+}
+
+// ── SECTION JUMP MENU ──
+function toggleJumpMenu() {
+  const menu = document.getElementById('present-jump-menu');
+  if (!menu) return;
+  const isOpen = menu.classList.contains('vis');
+  if (isOpen) { menu.classList.remove('vis'); return; }
+  renderJumpMenu();
+  menu.classList.add('vis');
+}
+
+function renderJumpMenu() {
+  const menu = document.getElementById('present-jump-menu');
+  if (!menu) return;
+  const itemsHtml = presentState.sections.map((sec, i) => {
+    let preview = sec.preview.length > 30 ? sec.preview.slice(0, 30) + '…' : sec.preview;
+    const isCurrent = i === presentState.idx;
+    return `<button class="jump-menu-item ${isCurrent ? 'current' : ''}" data-idx="${i}" onclick="jumpToSection(${i})">${esc(preview)}</button>`;
+  }).join('');
+  menu.innerHTML = itemsHtml;
+}
+
+function refreshJumpMenuHighlight() {
+  const menu = document.getElementById('present-jump-menu');
+  if (!menu || !menu.classList.contains('vis')) return;
+  menu.querySelectorAll('.jump-menu-item').forEach((el, i) => {
+    el.classList.toggle('current', i === presentState.idx);
+  });
+}
+
+function jumpToSection(i) {
+  if (i < 0 || i >= presentState.sections.length) return;
+  presentState.idx = i;
+  renderPresentSlide();
+  document.getElementById('present-jump-menu').classList.remove('vis');
 }
 
 function presentNext() {
@@ -1687,6 +1746,8 @@ function presentPrev() {
 
 function presentTouchStart(e) {
   if (!e.touches || !e.touches.length) return;
+  const jumpMenu = document.getElementById('present-jump-menu');
+  if (jumpMenu && jumpMenu.classList.contains('vis')) return;
   touchStartX = e.touches[0].clientX;
   touchStartY = e.touches[0].clientY;
 }
