@@ -2,7 +2,7 @@
 // The browser only detects a new service worker by diffing this file's content —
 // if this string doesn't change, updates to index.html can go undetected for a long
 // time, since the cache-first fetch strategy below keeps serving old cached content.
-const CACHE = 'soe-v12';
+const CACHE = 'soe-v13';
 const FONTS_CACHE = 'soe-fonts-v1';
 
 // App shell: everything needed to load and run the app fully offline.
