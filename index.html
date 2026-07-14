@@ -165,6 +165,7 @@ select{padding:10px 13px;}select option{background:var(--bg2);color:var(--text);
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
 .chip{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;padding:5px 12px;border-radius:12px;border:1px solid var(--border-gold);color:var(--text3);background:transparent;cursor:pointer;transition:all .2s;}
 .chip.on{background:var(--gold-bg);color:var(--gold);border-color:var(--gold);}
+.tag-select{width:100%;margin-bottom:12px;background:var(--surface);border:1px solid var(--border-gold);border-radius:6px;color:var(--text);font-family:'Crimson Pro',serif;font-size:14px;padding:9px 12px;cursor:pointer;}
 
 /* More tab accordion — fix 8: slightly larger row label font */
 .accordion-item{border:1px solid var(--border);border-radius:8px;margin-bottom:10px;overflow:hidden;}
@@ -322,7 +323,7 @@ footer{text-align:center;margin-top:40px;padding-top:14px;border-top:1px solid v
       <input type="text" id="lib-q" placeholder="Search…" oninput="onLibInput()" onkeydown="onLibKey(event)" autocomplete="off">
       <button class="clear-btn" id="lib-clear" onclick="clearLibSearch()">×</button>
     </div>
-    <div id="lib-chips" class="chips"></div>
+    <select id="lib-tag-select" class="tag-select" onchange="setFilter(this.value)"></select>
     <div id="lib-list"></div>
   </div>
   <div id="library-viewer" style="display:none;">
@@ -431,7 +432,7 @@ footer{text-align:center;margin-top:40px;padding-top:14px;border-top:1px solid v
     </div>
     <div class="accordion-body" id="acc-about">
       <div style="font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin-bottom:2px;">Songs of Emmanuel</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.28</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.29</div>
       <div class="about-body">
         <strong>Emmanuel Bible Institute</strong><br>
         Tenkasi, Tamil Nadu, India<br>
@@ -460,6 +461,24 @@ footer{text-align:center;margin-top:40px;padding-top:14px;border-top:1px solid v
     <div class="modal-acts">
       <button class="btn btn-outline btn-sm" onclick="closeEditModal()">Cancel</button>
       <button class="btn btn-sm" onclick="saveEdit()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="edit-note-modal">
+  <div class="modal">
+    <div class="modal-title">Edit Note</div>
+    <input type="hidden" id="edit-note-title">
+    <input type="hidden" id="edit-note-src">
+    <input type="hidden" id="edit-note-idx">
+    <input type="hidden" id="edit-note-panel">
+    <div class="form-group">
+      <label>Your Note (optional)</label>
+      <textarea id="edit-note-input" placeholder="Add a personal note about this song (only visible to you)…" style="min-height:100px;"></textarea>
+    </div>
+    <div class="modal-acts">
+      <button class="btn btn-outline btn-sm" onclick="closeEditNoteModal()">Cancel</button>
+      <button class="btn btn-sm" onclick="saveEditNoteModal()">Save Note</button>
     </div>
   </div>
 </div>
@@ -534,14 +553,34 @@ function getNote(s, src) {
   return builtInNotes[s.title] || '';
 }
 
-function saveBuiltInNote(title, src, idx, panel) {
-  const input = document.getElementById(`note-input-${panel}-${src}-${idx}`);
-  if (!input) return;
-  const trimmed = input.value.trim();
+function openEditNoteModal(title, src, idx, panel) {
+  closeAllMenus();
+  const s = src === 'songs' ? SONGS[idx] : myLib[idx];
+  if (!s) return;
+  document.getElementById('edit-note-title').value = title;
+  document.getElementById('edit-note-src').value = src;
+  document.getElementById('edit-note-idx').value = idx;
+  document.getElementById('edit-note-panel').value = panel;
+  document.getElementById('edit-note-input').value = getNote(s, src);
+  document.getElementById('edit-note-modal').classList.add('vis');
+}
+function closeEditNoteModal() { document.getElementById('edit-note-modal').classList.remove('vis'); }
+function saveEditNoteModal() {
+  const title = document.getElementById('edit-note-title').value;
+  const src = document.getElementById('edit-note-src').value;
+  const idx = parseInt(document.getElementById('edit-note-idx').value);
+  const panel = document.getElementById('edit-note-panel').value;
+  const trimmed = document.getElementById('edit-note-input').value.trim();
+
   if (trimmed) builtInNotes[title] = trimmed;
   else delete builtInNotes[title];
   persist();
+  closeEditNoteModal();
   showStatus('ok', trimmed ? 'Note saved.' : 'Note removed.');
+
+  // Refresh the viewer if this song is currently open, so the note display updates immediately.
+  if (viewerState.src === src && viewerState.idx === idx && viewerState.panel)
+    renderSongViewerOnly(src, idx, viewerState.panel, viewerState.fromSearch);
 }
 
 function toggleAccordion(id) {
@@ -1238,7 +1277,10 @@ function buildViewer(s, src, idx, panel) {
             ${isUser ? `<button onclick="openEditModal(${idx})">
               <svg viewBox="0 0 14 14"><path d="M9.5 2.5l2 2-7 7H2.5v-2l7-7z"/></svg>
               Edit
-            </button>` : ''}
+            </button>` : `<button onclick="openEditNoteModal('${safeTitle}','${src}',${idx},'${panel}')">
+              <svg viewBox="0 0 14 14"><path d="M9.5 2.5l2 2-7 7H2.5v-2l7-7z"/></svg>
+              Edit Notes
+            </button>`}
             ${isUser ? `<button class="del" onclick="confirmDeleteV(${idx},'${src}','${panel}')">
               <svg viewBox="0 0 14 14"><polyline points="2,4 12,4"/><path d="M5 4V2.5h4V4"/><path d="M3 4l.8 7.5h6.4L11 4"/></svg>
               Delete
@@ -1250,14 +1292,7 @@ function buildViewer(s, src, idx, panel) {
     <div class="viewer-body">${formatLyrics(s.lyrics)}</div>
     ${pageRefHtml}
     ${(s.artist || s.author) ? `<div style="margin-top:12px;font-size:13px;color:var(--text3);">✍️ ${esc(s.artist || s.author)}</div>` : ''}
-    ${isUser ? (s.notes ? `<div style="margin-top:6px;font-size:13px;color:var(--text3);font-style:italic;">📝 ${esc(s.notes)}</div>` : '') : `
-    <div style="margin-top:14px;">
-      <div class="tag-mgr-lbl">Your Note</div>
-      <textarea id="note-input-${panel}-${src}-${idx}" placeholder="Add a personal note about this song (only visible to you)…" style="min-height:60px;font-size:14px;">${esc(getNote(s, src))}</textarea>
-      <div style="margin-top:6px;text-align:right;">
-        <button class="btn btn-outline btn-sm" onclick="saveBuiltInNote('${safeTitle}','${src}',${idx},'${panel}')">Save Note</button>
-      </div>
-    </div>`}
+    ${getNote(s, src) ? `<div style="margin-top:6px;font-size:13px;color:var(--text3);font-style:italic;">📝 ${esc(getNote(s, src))}</div>` : ''}
     <div class="tag-mgr">
       <div class="tag-mgr-lbl">Tags</div>
       <div class="tag-disp" id="td-${panel}-${src}-${idx}">${stags.map(t => `<span class="tag-rm">${esc(t)}<button onclick="rmTag('${safeTitle}','${esc(t)}','${src}','${idx}','${panel}')">×</button></span>`).join('')}</div>
@@ -1418,11 +1453,16 @@ function confirmDeleteV(idx, src, panel) {
 
 function refreshLibChips() {
   const atags = allTagsList();
-  const chips = document.getElementById('lib-chips');
-  let h = `<button class="chip ${tagFilter === 'all' ? 'on' : ''}" onclick="setFilter('all')">All saved</button>`;
-  if (favs.size) h += `<button class="chip ${tagFilter === '★' ? 'on' : ''}" onclick="setFilter('★')">★ Favorites</button>`;
-  atags.forEach(t => { h += `<button class="chip ${tagFilter === t ? 'on' : ''}" onclick="setFilter('${esc(t)}')">${esc(t)}</button>`; });
-  chips.innerHTML = h;
+  const select = document.getElementById('lib-tag-select');
+  if (!select) return;
+  let h = `<option value="all">All saved</option>`;
+  if (favs.size) h += `<option value="★">★ Favorites</option>`;
+  atags.forEach(t => { h += `<option value="${esc(t)}">${esc(t)}</option>`; });
+  select.innerHTML = h;
+  select.value = tagFilter;
+  // If the currently-set filter no longer exists as an option (e.g. its last song was
+  // untagged/removed elsewhere), fall back to "all" so the dropdown isn't left blank.
+  if (select.value !== tagFilter) { tagFilter = 'all'; select.value = 'all'; }
 }
 function setFilter(t) {
   tagFilter = t; refreshLibChips(); renderLib();
