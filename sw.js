@@ -2,7 +2,7 @@
 // The browser only detects a new service worker by diffing this file's content —
 // if this string doesn't change, updates to index.html can go undetected for a long
 // time, since the cache-first fetch strategy below keeps serving old cached content.
-const CACHE = 'soe-v13';
+const CACHE = 'soe-v14';
 const FONTS_CACHE = 'soe-fonts-v1';
 
 // App shell: everything needed to load and run the app fully offline.
@@ -33,7 +33,6 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
 
-  // Google Fonts: cache separately with a long-lived cache, since font files rarely change.
   if (url.hostname.includes('fonts.googleapis.com') || url.hostname.includes('fonts.gstatic.com')) {
     e.respondWith(
       caches.open(FONTS_CACHE).then(c =>
@@ -46,9 +45,6 @@ self.addEventListener('fetch', e => {
     return;
   }
 
-  // Everything else (app shell, icons, manifest): cache-first, falling back to network,
-  // and finally falling back to the cached index.html if both the network and a specific
-  // cache entry are unavailable (e.g. cold-starting the app while fully offline).
   e.respondWith(
     caches.match(e.request).then(cached => {
       if (cached) return cached;
