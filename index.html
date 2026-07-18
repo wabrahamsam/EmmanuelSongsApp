@@ -434,7 +434,7 @@ footer{text-align:center;margin-top:40px;padding-top:14px;border-top:1px solid v
     </div>
     <div class="accordion-body" id="acc-about">
       <div style="font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin-bottom:2px;">Songs of Emmanuel</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.31</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.32</div>
       <div class="about-body">
         <strong>Emmanuel Bible Institute</strong><br>
         Tenkasi, Tamil Nadu, India<br>
@@ -773,6 +773,12 @@ document.addEventListener('click', e => {
   if (!e.target.closest('.dot-menu-wrap')) closeAllMenus();
   if (!e.target.closest('.search-wrap')) hideAC();
   if (!e.target.closest('.tag-input-wrap')) hideAllTagAC();
+  // Close the presentation-mode jump menu on any tap outside it (and outside the
+  // button that opens it, so that tap doesn't immediately reopen what it just closed).
+  if (!e.target.closest('.present-jump-menu') && !e.target.closest('.present-jump-btn')) {
+    const jumpMenu = document.getElementById('present-jump-menu');
+    if (jumpMenu) jumpMenu.classList.remove('vis');
+  }
 });
 
 // ──────────────────────────────────────────────────────────
@@ -1800,6 +1806,10 @@ function renderPresentSlide() {
   if (!wrap) return;
   const section = presentState.sections[presentState.idx];
   wrap.innerHTML = `<div class="present-body">${section.html}</div>`;
+  // Always start a newly-shown section at the top — otherwise a scroll position left
+  // over from a longer previous section (e.g. having scrolled down to read its last
+  // line) would carry over visually onto the new section's content.
+  wrap.scrollTop = 0;
   if (counter) counter.textContent = `${presentState.idx + 1} / ${presentState.sections.length}`;
   refreshJumpMenuHighlight();
 }
