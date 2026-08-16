@@ -120,6 +120,12 @@ select{padding:10px 13px;}select option{background:var(--bg2);color:var(--text);
 .tag{display:inline-block;font-size:10px;font-family:'Cinzel',serif;letter-spacing:.04em;padding:2px 7px;border-radius:10px;background:var(--tag-bg);color:var(--tag-text);margin:2px 2px 0 0;}
 
 .back-btn{display:inline-flex;align-items:center;gap:5px;color:var(--text3);cursor:pointer;margin-bottom:12px;font-family:'Cinzel',serif;font-size:10px;background:none;border:none;padding:0;letter-spacing:.07em;transition:color .2s;}
+.viewer-top-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;}
+.viewer-top-row .back-btn{margin-bottom:0;}
+.viewer-quick-ctrls{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.vq-btn{background:var(--surface);border:1px solid var(--border-gold);border-radius:6px;color:var(--gold);font-family:'Cinzel',serif;font-size:12px;font-weight:600;cursor:pointer;width:26px;height:26px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.vq-btn:hover{background:var(--gold-bg);}
+.vq-theme-btn{font-size:13px;}
 .back-btn:hover{color:var(--gold);}
 
 /* Viewer */
@@ -434,7 +440,7 @@ footer{text-align:center;margin-top:40px;padding-top:14px;border-top:1px solid v
     </div>
     <div class="accordion-body" id="acc-about">
       <div style="font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin-bottom:2px;">Songs of Emmanuel</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.33</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.35</div>
       <div class="about-body">
         <strong>Emmanuel Bible Institute</strong><br>
         Tenkasi, Tamil Nadu, India<br>
@@ -604,6 +610,7 @@ function loadSettings() {
 function setSize(s) {
   ['sm','md','lg'].forEach(x => document.getElementById('sz-'+x).classList.toggle('on', x === s));
   applySize(s, true);
+  refreshViewerQuickCtrls();
 }
 function applySize(s, save) {
   document.body.classList.remove('text-sm','text-md','text-lg');
@@ -613,6 +620,7 @@ function applySize(s, save) {
 function setTheme(t) {
   ['light','auto','dark'].forEach(x => document.getElementById('th-'+x).classList.toggle('on', x === t));
   applyTheme(t, true);
+  refreshViewerQuickCtrls();
 }
 function applyTheme(t, save) {
   document.body.classList.remove('theme-light','theme-dark');
@@ -620,6 +628,47 @@ function applyTheme(t, save) {
   if (t === 'dark') document.body.classList.add('theme-dark');
   if (save) localStorage.setItem('soe_theme', t);
 }
+
+// ── VIEWER QUICK CONTROLS (text size + theme, right on the back-nav row) ──
+const SIZE_STEPS = ['sm', 'md', 'lg'];
+const THEME_ICONS = { light: '☀', auto: '☀', dark: '☾' };
+
+function buildViewerQuickCtrls() {
+  const size = localStorage.getItem('soe_size') || 'md';
+  const theme = localStorage.getItem('soe_theme') || 'auto';
+  const atMin = size === SIZE_STEPS[0];
+  const atMax = size === SIZE_STEPS[SIZE_STEPS.length - 1];
+  return `<div class="viewer-quick-ctrls" id="viewer-quick-ctrls">
+    <button class="vq-btn" onclick="bumpSize(-1)" ${atMin ? 'disabled style="opacity:.35;cursor:default;"' : ''} aria-label="Decrease text size">A−</button>
+    <button class="vq-btn" onclick="bumpSize(1)" ${atMax ? 'disabled style="opacity:.35;cursor:default;"' : ''} aria-label="Increase text size">A+</button>
+    <button class="vq-btn vq-theme-btn" onclick="cycleTheme()" aria-label="Change theme">${THEME_ICONS[theme]}</button>
+  </div>`;
+}
+
+function bumpSize(delta) {
+  const current = localStorage.getItem('soe_size') || 'md';
+  const idx = SIZE_STEPS.indexOf(current);
+  const next = SIZE_STEPS[Math.max(0, Math.min(SIZE_STEPS.length - 1, idx + delta))];
+  if (next === current) return;
+  setSize(next);
+}
+
+function cycleTheme() {
+  const current = localStorage.getItem('soe_theme') || 'auto';
+  // Quick-toggle only knows light/dark; if the standing preference is Auto, the first
+  // tap picks light as a predictable starting point, then it strictly alternates from there.
+  const next = current === 'dark' ? 'light' : (current === 'light' ? 'dark' : 'light');
+  setTheme(next);
+}
+
+// Re-renders just the quick-controls (called after setSize/setTheme, from either the
+// Settings screen or the viewer itself) so both entry points always agree.
+function refreshViewerQuickCtrls() {
+  const el = document.getElementById('viewer-quick-ctrls');
+  if (!el) return;
+  el.outerHTML = buildViewerQuickCtrls();
+}
+
 function clearAllData() {
   if (!confirm('This will remove all your stars, tags, added songs, and personal notes, returning the app to default. This cannot be undone. Continue?')) return;
   favs = new Set(); tags = {}; myLib = []; builtInNotes = {};
@@ -1242,14 +1291,16 @@ function renderSongViewerOnly(src, idx, panel, fromSearch) {
 
   if (panel === 'songs') {
     const nav = document.getElementById('songs-back-nav');
-    nav.innerHTML = fromSearch ?
+    const backBtn = fromSearch ?
       `<button class="back-btn" onclick="backToResults()">← Back to results</button>` :
       `<button class="back-btn" onclick="goHome()">← Back to songs</button>`;
+    nav.innerHTML = `<div class="viewer-top-row">${backBtn}${buildViewerQuickCtrls()}</div>`;
   } else if (panel === 'library') {
     const nav = document.getElementById('lib-back-nav');
-    nav.innerHTML = fromSearch ?
+    const backBtn = fromSearch ?
       `<button class="back-btn" onclick="backToLibResults()">← Back to results</button>` :
       `<button class="back-btn" onclick="libHome()">← Back to library</button>`;
+    nav.innerHTML = `<div class="viewer-top-row">${backBtn}${buildViewerQuickCtrls()}</div>`;
   }
 
   const contentEl = document.getElementById(panel + '-viewer-content');
