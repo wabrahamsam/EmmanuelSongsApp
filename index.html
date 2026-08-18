@@ -440,7 +440,7 @@ footer{text-align:center;margin-top:40px;padding-top:14px;border-top:1px solid v
     </div>
     <div class="accordion-body" id="acc-about">
       <div style="font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin-bottom:2px;">Songs of Emmanuel</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.35</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.37</div>
       <div class="about-body">
         <strong>Emmanuel Bible Institute</strong><br>
         Tenkasi, Tamil Nadu, India<br>
@@ -631,7 +631,8 @@ function applyTheme(t, save) {
 
 // ── VIEWER QUICK CONTROLS (text size + theme, right on the back-nav row) ──
 const SIZE_STEPS = ['sm', 'md', 'lg'];
-const THEME_ICONS = { light: '☀', auto: '☀', dark: '☾' };
+const THEME_ICONS = { light: '☀', auto: '◐', dark: '☾' };
+const THEME_NEXT = { light: 'dark', dark: 'auto', auto: 'light' };
 
 function buildViewerQuickCtrls() {
   const size = localStorage.getItem('soe_size') || 'md';
@@ -655,10 +656,7 @@ function bumpSize(delta) {
 
 function cycleTheme() {
   const current = localStorage.getItem('soe_theme') || 'auto';
-  // Quick-toggle only knows light/dark; if the standing preference is Auto, the first
-  // tap picks light as a predictable starting point, then it strictly alternates from there.
-  const next = current === 'dark' ? 'light' : (current === 'light' ? 'dark' : 'light');
-  setTheme(next);
+  setTheme(THEME_NEXT[current]);
 }
 
 // Re-renders just the quick-controls (called after setSize/setTheme, from either the
