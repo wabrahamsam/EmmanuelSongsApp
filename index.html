@@ -440,7 +440,7 @@ footer{text-align:center;margin-top:40px;padding-top:14px;border-top:1px solid v
     </div>
     <div class="accordion-body" id="acc-about">
       <div style="font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin-bottom:2px;">Songs of Emmanuel</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.39</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:12px;">Version 1.40</div>
       <div class="about-body">
         <strong>Emmanuel Bible Institute</strong><br>
         Tenkasi, Tamil Nadu, India<br>
@@ -1212,9 +1212,24 @@ function songMatchesQuery(s, q) {
   );
 }
 
+// Checks whether the query appears as a genuine consecutive phrase somewhere in the
+// text — not just as scattered individual words. Punctuation is normalized away first
+// (commas, exclamation points, etc.) so a lyric line like "O Lord, my God, when I..."
+// still matches the query "o lord my god", since the words really are consecutive in
+// the way the song is actually sung, just separated by punctuation on the page.
+function containsPhrase(text, phrase) {
+  if (!phrase) return false;
+  const normalize = s => s.toLowerCase().replace(/[^a-z0-9\s']/gi, ' ').replace(/\s+/g, ' ').trim();
+  const normalizedText = ' ' + normalize(text) + ' ';
+  const normalizedPhrase = ' ' + normalize(phrase) + ' ';
+  return normalizedText.includes(normalizedPhrase);
+}
+
 // Scores how relevant a song is to a search query, so the most obviously-correct match
-// (e.g. an exact or near-exact title match) sorts to the top of results, rather than
-// results just falling back to whatever order the underlying song list happens to be in.
+// (e.g. an exact or near-exact title match, or the query appearing as a real consecutive
+// phrase in the lyrics) sorts to the top of results — rather than falling back to
+// whatever order the underlying song list happens to be in, or treating "all the words
+// appear somewhere, scattered" the same as "the words appear together as an actual line."
 // Higher score = more relevant. Assumes songMatchesQuery(s, q) is already true.
 function songRelevanceScore(s, q) {
   const ql = q.toLowerCase().trim();
@@ -1227,7 +1242,23 @@ function songRelevanceScore(s, q) {
   // All query words present as whole words in the title (any order/position)
   if (queryWords.every(w => containsWholeWord(title, w))) return 70;
   if (title.includes(ql)) return 60;                   // query appears as a raw substring in the title
-  // Otherwise, the match came from lyrics/artist/notes/tags — lowest tier
+
+  // Title didn't match well — check whether the query appears as a genuine consecutive
+  // phrase in the lyrics (e.g. an actual line of the song), which is a much stronger
+  // signal than the same words merely appearing somewhere, scattered, in the song.
+  if (queryWords.length > 1 && containsPhrase(s.lyrics, ql)) {
+    // A small bonus for the phrase appearing near the very start of the song (e.g. as
+    // the actual opening line) over the same phrase appearing deeper into the lyrics —
+    // an opening-line match is usually what someone means when they search a phrase.
+    const normalize = str => str.toLowerCase().replace(/[^a-z0-9\s']/gi, ' ').replace(/\s+/g, ' ').trim();
+    const normalizedLyrics = normalize(s.lyrics);
+    const normalizedQ = normalize(ql);
+    const pos = normalizedLyrics.indexOf(normalizedQ);
+    const nearStart = pos >= 0 && pos < 40; // roughly "within the first line or so"
+    return nearStart ? 55 : 50;
+  }
+
+  // Otherwise, the match came from scattered lyric words, artist, notes, or tags — lowest tier
   return 10;
 }
 function renderSongs() {
