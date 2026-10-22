@@ -2,7 +2,7 @@
 // The browser only detects a new service worker by diffing this file's content —
 // if this string doesn't change, updates to index.html can go undetected for a long
 // time, since the cache-first fetch strategy below keeps serving old cached content.
-const CACHE = 'soe-v14';
+const CACHE = 'soe-v15';
 const FONTS_CACHE = 'soe-fonts-v1';
 
 // App shell: everything needed to load and run the app fully offline.
@@ -24,7 +24,7 @@ self.addEventListener('install', e => {
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE && k !== FONTS_CACHE).map(k => caches.delete(k)))
+      Promise.all(keys.filter(k => k.startsWith('soe-') && k !== CACHE && k !== FONTS_CACHE).map(k => caches.delete(k)))
     )
   );
   self.clients.claim();
